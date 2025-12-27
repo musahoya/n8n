@@ -75,7 +75,7 @@ python app.py
    - **Agent 3 (검수)**: GPT 추천 (엄격한 검수)
 4. 퍼블리싱 설정 (선택사항):
    - 네이버 블로그 API 설정
-   - 티스토리 API 설정
+   - 구글 블로그(Blogger) API 설정
 
 ### Step 1: 업종 입력
 
@@ -224,11 +224,11 @@ n8n/
 
 ### Agent 5: 퍼블리싱 (PublisherAgent)
 
-**목적**: 네이버/티스토리에 자동 게시
+**목적**: 네이버/구글 블로그에 자동 게시
 
 **지원 플랫폼**:
 - 네이버 블로그 (API 연동 필요)
-- 티스토리 (OAuth 토큰 필요)
+- 구글 블로그 / Blogger (API Key + Blog ID 필요)
 
 **현재 상태**: 스켈레톤 구현 (테스트 모드)
 
@@ -279,13 +279,29 @@ n8n/
 4. Client ID, Client Secret 발급
 5. 웹 UI에서 입력
 
-### 티스토리 API
+### 구글 블로그(Blogger) API
 
-1. https://www.tistory.com/guide/api/manage/register 접속
-2. 앱 등록
-3. OAuth 인증
-4. Access Token 발급
-5. 웹 UI에서 입력
+1. **Google Cloud Console**에서 프로젝트 생성
+   - https://console.cloud.google.com/ 접속
+   - 새 프로젝트 생성
+
+2. **Blogger API 활성화**
+   - "API 및 서비스" → "라이브러리"
+   - "Blogger API v3" 검색 후 활성화
+
+3. **API 키 생성**
+   - "사용자 인증 정보" → "사용자 인증 정보 만들기"
+   - "API 키" 선택
+   - API 키 복사
+
+4. **Blog ID 확인**
+   - 블로그 설정 페이지에서 확인
+   - 또는 브라우저 개발자 도구에서 HTML 소스 확인
+
+5. **(선택) OAuth 2.0 설정**
+   - 더 많은 권한이 필요한 경우
+   - OAuth 2.0 클라이언트 ID 생성
+   - Access Token 발급
 
 ---
 
@@ -375,6 +391,7 @@ MIT License
 - 고정 모델 → 유연한 모델 선택
 - DALL-E 자동 생성 → Gemini 프롬프트 + 수동 업로드
 - LangGraph 워크플로우 → Flask 라우팅
+- 티스토리 API → 구글 블로그 API
 
 ---
 

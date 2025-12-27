@@ -100,15 +100,31 @@
             </details>
 
             <details>
-                <summary><strong>티스토리 설정</strong></summary>
+                <summary><strong>구글 블로그(Blogger) 설정</strong></summary>
                 <div class="form-group">
-                    <label for="tistory_token">Access Token</label>
-                    <input type="text" id="tistory_token" name="tistory_token" class="form-control">
+                    <label for="google_api_key">Google API Key</label>
+                    <input type="text" id="google_api_key" name="google_api_key" class="form-control"
+                           placeholder="AIza...">
+                    <p class="help-text">
+                        <a href="https://console.cloud.google.com/apis/credentials" target="_blank">
+                            Google Cloud Console에서 발급받기
+                        </a>
+                    </p>
                 </div>
                 <div class="form-group">
-                    <label for="tistory_blog_name">Blog Name</label>
-                    <input type="text" id="tistory_blog_name" name="tistory_blog_name"
-                           placeholder="myblog" class="form-control">
+                    <label for="google_blog_id">Blog ID</label>
+                    <input type="text" id="google_blog_id" name="google_blog_id" class="form-control"
+                           placeholder="123456789012345678">
+                    <p class="help-text">
+                        블로그 설정 또는 URL에서 확인 가능합니다.
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label for="google_access_token">OAuth Access Token (선택)</label>
+                    <input type="text" id="google_access_token" name="google_access_token" class="form-control">
+                    <p class="help-text">
+                        더 많은 권한이 필요한 경우 OAuth 2.0 토큰을 입력하세요.
+                    </p>
                 </div>
             </details>
         </div>

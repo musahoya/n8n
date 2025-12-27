@@ -49,8 +49,9 @@ def setup():
     session['naver_client_id'] = request.form.get('naver_client_id', '').strip()
     session['naver_client_secret'] = request.form.get('naver_client_secret', '').strip()
     session['naver_blog_id'] = request.form.get('naver_blog_id', '').strip()
-    session['tistory_token'] = request.form.get('tistory_token', '').strip()
-    session['tistory_blog_name'] = request.form.get('tistory_blog_name', '').strip()
+    session['google_api_key'] = request.form.get('google_api_key', '').strip()
+    session['google_blog_id'] = request.form.get('google_blog_id', '').strip()
+    session['google_access_token'] = request.form.get('google_access_token', '').strip()
 
     flash('설정이 저장되었습니다!', 'success')
     return redirect(url_for('step1_business_type'))
@@ -279,7 +280,7 @@ def publish():
     try:
         # 퍼블리싱 설정
         naver_config = None
-        tistory_config = None
+        google_config = None
 
         if session.get('naver_client_id'):
             naver_config = {
@@ -288,15 +289,16 @@ def publish():
                 'blog_id': session['naver_blog_id']
             }
 
-        if session.get('tistory_token'):
-            tistory_config = {
-                'access_token': session['tistory_token'],
-                'blog_name': session['tistory_blog_name']
+        if session.get('google_api_key') and session.get('google_blog_id'):
+            google_config = {
+                'api_key': session['google_api_key'],
+                'blog_id': session['google_blog_id'],
+                'access_token': session.get('google_access_token')
             }
 
         publisher = PublisherAgent(
             naver_config=naver_config,
-            tistory_config=tistory_config
+            google_config=google_config
         )
 
         # 이미지 경로
@@ -314,8 +316,8 @@ def publish():
 
         if platform == 'naver':
             result = publisher.publish_to_naver(title, content, image_path)
-        elif platform == 'tistory':
-            result = publisher.publish_to_tistory(title, content, image_path)
+        elif platform == 'google':
+            result = publisher.publish_to_google(title, content, image_path)
         else:
             flash('지원하지 않는 플랫폼입니다.', 'error')
             return redirect(url_for('step6_final_preview'))
