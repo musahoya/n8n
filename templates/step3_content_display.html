@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Step 3: 콘텐츠 생성 완료{% endblock %}
+
+{% block content %}
+<div class="step-container">
+    <div class="progress-bar">
+        <div class="progress-step completed">1. 업종</div>
+        <div class="progress-step completed">2. 주제</div>
+        <div class="progress-step active">3. 작성</div>
+        <div class="progress-step">4. 검수</div>
+        <div class="progress-step">5. 이미지</div>
+        <div class="progress-step">6. 발행</div>
+    </div>
+
+    <h2>✍️ Step 3: 콘텐츠 생성 완료</h2>
+    <p class="subtitle">
+        플랫폼별 맞춤 콘텐츠가 생성되었습니다.
+        <span class="model-badge">{{ writer_model }}</span>
+    </p>
+
+    <div class="topic-info">
+        <h3>{{ topic.title }}</h3>
+        <span class="keyword-badge">{{ topic.keyword }}</span>
+    </div>
+
+    <form action="{{ url_for('step4_content_review') }}" method="POST">
+        <div class="content-tabs">
+            {% for content in contents %}
+            <div class="content-tab">
+                <input type="radio" name="platform" id="{{ content.platform }}"
+                       value="{{ content.platform }}" {% if loop.first %}checked{% endif %}>
+                <label for="{{ content.platform }}" class="tab-label">
+                    {% if content.platform == 'naver' %}
+                        네이버 블로그
+                    {% elif content.platform == 'tistory' %}
+                        티스토리
+                    {% elif content.platform == 'google' %}
+                        구글 블로그
+                    {% endif %}
+                </label>
+                <div class="content-preview">
+                    <div class="content-meta">
+                        <span class="tone-badge">{{ content.tone }}</span>
+                        <span class="word-count">{{ content.content|length }}자</span>
+                    </div>
+                    <pre class="content-body">{{ content.content }}</pre>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-large">
+            선택한 콘텐츠 검수하기 →
+        </button>
+    </form>
+</div>
+{% endblock %}

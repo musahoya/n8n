@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}발행 완료{% endblock %}
+
+{% block content %}
+<div class="step-container">
+    <div class="result-container">
+        {% if result.success %}
+            <div class="success-icon">✅</div>
+            <h2>발행 완료!</h2>
+            <p class="subtitle">블로그가 성공적으로 발행되었습니다.</p>
+
+            <div class="result-info">
+                <p><strong>플랫폼:</strong> {{ platform }}</p>
+                {% if result.url %}
+                <p><strong>URL:</strong> <a href="{{ result.url }}" target="_blank">{{ result.url }}</a></p>
+                {% endif %}
+            </div>
+
+            <div class="result-note">
+                <p>💡 <strong>참고:</strong> 현재는 테스트 모드로 실제 발행은 되지 않습니다.</p>
+                <p>실제 퍼블리싱을 위해서는 <code>agents/publisher_agent.py</code>의 주석 처리된 코드를 활성화하세요.</p>
+            </div>
+        {% else %}
+            <div class="error-icon">❌</div>
+            <h2>발행 실패</h2>
+            <p class="subtitle">오류가 발생했습니다.</p>
+
+            <div class="error-info">
+                <p><strong>오류 메시지:</strong></p>
+                <pre>{{ result.error }}</pre>
+            </div>
+        {% endif %}
+
+        <div class="action-buttons">
+            <a href="{{ url_for('index') }}" class="btn btn-primary btn-large">
+                새로운 글 작성하기
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

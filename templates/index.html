@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}설정 - 멀티 에이전트 블로그 자동화{% endblock %}
+
+{% block content %}
+<div class="setup-container">
+    <h2>🔧 초기 설정</h2>
+    <p class="subtitle">AI 모델 API 키와 각 단계별 모델을 선택하세요.</p>
+
+    <form action="{{ url_for('setup') }}" method="POST">
+        <!-- API 키 섹션 -->
+        <div class="section">
+            <h3>1️⃣ API 키 설정</h3>
+            <p class="help-text">최소 1개 이상의 API 키를 입력해주세요.</p>
+
+            <div class="form-group">
+                <label for="gemini_api_key">
+                    <strong>Google Gemini API Key</strong>
+                    <a href="https://makersuite.google.com/app/apikey" target="_blank" class="help-link">(발급받기)</a>
+                </label>
+                <input type="text" id="gemini_api_key" name="gemini_api_key"
+                       placeholder="AIza..." class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="claude_api_key">
+                    <strong>Anthropic Claude API Key</strong>
+                    <a href="https://console.anthropic.com/" target="_blank" class="help-link">(발급받기)</a>
+                </label>
+                <input type="text" id="claude_api_key" name="claude_api_key"
+                       placeholder="sk-ant-..." class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="openai_api_key">
+                    <strong>OpenAI GPT API Key</strong>
+                    <a href="https://platform.openai.com/api-keys" target="_blank" class="help-link">(발급받기)</a>
+                </label>
+                <input type="text" id="openai_api_key" name="openai_api_key"
+                       placeholder="sk-..." class="form-control">
+            </div>
+        </div>
+
+        <!-- 모델 선택 섹션 -->
+        <div class="section">
+            <h3>2️⃣ 각 단계별 AI 모델 선택</h3>
+
+            <div class="model-selection">
+                <div class="model-group">
+                    <label><strong>Agent 1: 주제 기획</strong></label>
+                    <p class="help-text">업종을 분석하고 블로그 주제를 추천합니다.</p>
+                    <select name="planner_model" class="form-control">
+                        <option value="gemini" selected>Gemini 1.5 Pro (추천)</option>
+                        <option value="claude">Claude 3.5 Sonnet</option>
+                        <option value="gpt">GPT-4o</option>
+                    </select>
+                </div>
+
+                <div class="model-group">
+                    <label><strong>Agent 2: 콘텐츠 작성</strong></label>
+                    <p class="help-text">플랫폼별 맞춤 블로그 글을 작성합니다.</p>
+                    <select name="writer_model" class="form-control">
+                        <option value="gemini">Gemini 1.5 Pro</option>
+                        <option value="claude" selected>Claude 3.5 Sonnet (추천)</option>
+                        <option value="gpt">GPT-4o</option>
+                    </select>
+                </div>
+
+                <div class="model-group">
+                    <label><strong>Agent 3: 콘텐츠 검수</strong></label>
+                    <p class="help-text">팩트 체크 및 품질을 검수합니다.</p>
+                    <select name="reviewer_model" class="form-control">
+                        <option value="gemini">Gemini 1.5 Pro</option>
+                        <option value="claude">Claude 3.5 Sonnet</option>
+                        <option value="gpt" selected>GPT-4o (추천)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- 퍼블리싱 설정 (선택) -->
+        <div class="section">
+            <h3>3️⃣ 퍼블리싱 설정 (선택사항)</h3>
+            <p class="help-text">자동 퍼블리싱을 원하지 않으면 비워두세요.</p>
+
+            <details>
+                <summary><strong>네이버 블로그 설정</strong></summary>
+                <div class="form-group">
+                    <label for="naver_client_id">Client ID</label>
+                    <input type="text" id="naver_client_id" name="naver_client_id" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="naver_client_secret">Client Secret</label>
+                    <input type="text" id="naver_client_secret" name="naver_client_secret" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="naver_blog_id">Blog ID</label>
+                    <input type="text" id="naver_blog_id" name="naver_blog_id" class="form-control">
+                </div>
+            </details>
+
+            <details>
+                <summary><strong>티스토리 설정</strong></summary>
+                <div class="form-group">
+                    <label for="tistory_token">Access Token</label>
+                    <input type="text" id="tistory_token" name="tistory_token" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="tistory_blog_name">Blog Name</label>
+                    <input type="text" id="tistory_blog_name" name="tistory_blog_name"
+                           placeholder="myblog" class="form-control">
+                </div>
+            </details>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-large">
+            시작하기 →
+        </button>
+    </form>
+</div>
+{% endblock %}
