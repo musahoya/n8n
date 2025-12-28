@@ -51,7 +51,7 @@ class MultiModelAgent:
             if not gemini_api_key:
                 raise ValueError("Gemini API 키가 필요합니다.")
             return ChatGoogleGenerativeAI(
-                model="gemini-1.5-pro-latest",
+                model="gemini-2.5-flash",
                 google_api_key=gemini_api_key,
                 temperature=self.temperature,
                 convert_system_message_to_human=True  # Gemini는 시스템 메시지를 지원하지 않으므로 변환
@@ -61,7 +61,7 @@ class MultiModelAgent:
             if not claude_api_key:
                 raise ValueError("Claude API 키가 필요합니다.")
             return ChatAnthropic(
-                model="claude-3-5-sonnet-latest",  # 최신 버전 사용
+                model="claude-3-5-sonnet-20241022",  # Claude 3.5 Sonnet (2024년 10월)
                 api_key=claude_api_key,  # anthropic_api_key 대신 api_key 사용
                 temperature=self.temperature,
                 max_tokens=8192  # Claude 3.5는 8192 토큰 지원
@@ -107,7 +107,7 @@ class MultiModelAgent:
     def get_model_name(self) -> str:
         """현재 사용 중인 모델 이름 반환"""
         model_names = {
-            "gemini": "Gemini 1.5 Pro",
+            "gemini": "Gemini 2.5 Flash",
             "claude": "Claude 3.5 Sonnet",
             "gpt": "GPT-4o"
         }
