@@ -1,137 +1,77 @@
-{% extends "base.html" %}
-
-{% block title %}설정 - 멀티 에이전트 블로그 자동화{% endblock %}
-
-{% block content %}
-<div class="setup-container">
-    <h2>🔧 초기 설정</h2>
-    <p class="subtitle">AI 모델 API 키와 각 단계별 모델을 선택하세요.</p>
-
-    <form action="{{ url_for('setup') }}" method="POST">
-        <!-- API 키 섹션 -->
-        <div class="section">
-            <h3>1️⃣ API 키 설정</h3>
-            <p class="help-text">최소 1개 이상의 API 키를 입력해주세요.</p>
-
-            <div class="form-group">
-                <label for="gemini_api_key">
-                    <strong>Google Gemini API Key</strong>
-                    <a href="https://makersuite.google.com/app/apikey" target="_blank" class="help-link">(발급받기)</a>
-                </label>
-                <input type="text" id="gemini_api_key" name="gemini_api_key"
-                       placeholder="AIza..." class="form-control">
-            </div>
-
-            <div class="form-group">
-                <label for="claude_api_key">
-                    <strong>Anthropic Claude API Key</strong>
-                    <a href="https://console.anthropic.com/" target="_blank" class="help-link">(발급받기)</a>
-                </label>
-                <input type="text" id="claude_api_key" name="claude_api_key"
-                       placeholder="sk-ant-..." class="form-control">
-            </div>
-
-            <div class="form-group">
-                <label for="openai_api_key">
-                    <strong>OpenAI GPT API Key</strong>
-                    <a href="https://platform.openai.com/api-keys" target="_blank" class="help-link">(발급받기)</a>
-                </label>
-                <input type="text" id="openai_api_key" name="openai_api_key"
-                       placeholder="sk-..." class="form-control">
-            </div>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>블로그 자동화 시스템</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f0f2f5; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #1a73e8; text-align: center; margin-bottom: 30px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; color: #333; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; }
+        button { width: 100%; padding: 12px; background: #1a73e8; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin-top: 20px; }
+        button:hover { background: #1557b0; }
+        .alert { padding: 10px; margin-bottom: 20px; border-radius: 5px; }
+        .alert-info { background: #d1ecf1; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 블로그 자동화 시스템</h1>
+        
+        <div class="alert alert-info">
+            ⚠️ API 키는 세션에만 저장됩니다. 브라우저를 닫으면 삭제됩니다.
         </div>
 
-        <!-- 모델 선택 섹션 -->
-        <div class="section">
-            <h3>2️⃣ 각 단계별 AI 모델 선택</h3>
-
-            <div class="model-selection">
-                <div class="model-group">
-                    <label><strong>Agent 1: 주제 기획</strong></label>
-                    <p class="help-text">업종을 분석하고 블로그 주제를 추천합니다.</p>
-                    <select name="planner_model" class="form-control">
-                        <option value="gemini" selected>Gemini 1.5 Pro (추천)</option>
-                        <option value="claude">Claude 3.5 Sonnet</option>
-                        <option value="gpt">GPT-4o</option>
-                    </select>
-                </div>
-
-                <div class="model-group">
-                    <label><strong>Agent 2: 콘텐츠 작성</strong></label>
-                    <p class="help-text">플랫폼별 맞춤 블로그 글을 작성합니다.</p>
-                    <select name="writer_model" class="form-control">
-                        <option value="gemini">Gemini 1.5 Pro</option>
-                        <option value="claude" selected>Claude 3.5 Sonnet (추천)</option>
-                        <option value="gpt">GPT-4o</option>
-                    </select>
-                </div>
-
-                <div class="model-group">
-                    <label><strong>Agent 3: 콘텐츠 검수</strong></label>
-                    <p class="help-text">팩트 체크 및 품질을 검수합니다.</p>
-                    <select name="reviewer_model" class="form-control">
-                        <option value="gemini">Gemini 1.5 Pro</option>
-                        <option value="claude">Claude 3.5 Sonnet</option>
-                        <option value="gpt" selected>GPT-4o (추천)</option>
-                    </select>
-                </div>
+        <form action="/setup" method="POST">
+            <div class="form-group">
+                <label>Gemini API Key</label>
+                <input type="text" name="gemini_key" placeholder="AIza...">
             </div>
-        </div>
 
-        <!-- 퍼블리싱 설정 (선택) -->
-        <div class="section">
-            <h3>3️⃣ 퍼블리싱 설정 (선택사항)</h3>
-            <p class="help-text">자동 퍼블리싱을 원하지 않으면 비워두세요.</p>
+            <div class="form-group">
+                <label>Claude API Key</label>
+                <input type="text" name="claude_key" placeholder="sk-ant-...">
+            </div>
 
-            <details>
-                <summary><strong>네이버 블로그 설정</strong></summary>
-                <div class="form-group">
-                    <label for="naver_client_id">Client ID</label>
-                    <input type="text" id="naver_client_id" name="naver_client_id" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="naver_client_secret">Client Secret</label>
-                    <input type="text" id="naver_client_secret" name="naver_client_secret" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="naver_blog_id">Blog ID</label>
-                    <input type="text" id="naver_blog_id" name="naver_blog_id" class="form-control">
-                </div>
-            </details>
+            <div class="form-group">
+                <label>OpenAI API Key</label>
+                <input type="text" name="openai_key" placeholder="sk-...">
+            </div>
 
-            <details>
-                <summary><strong>구글 블로그(Blogger) 설정</strong></summary>
-                <div class="form-group">
-                    <label for="google_api_key">Google API Key</label>
-                    <input type="text" id="google_api_key" name="google_api_key" class="form-control"
-                           placeholder="AIza...">
-                    <p class="help-text">
-                        <a href="https://console.cloud.google.com/apis/credentials" target="_blank">
-                            Google Cloud Console에서 발급받기
-                        </a>
-                    </p>
-                </div>
-                <div class="form-group">
-                    <label for="google_blog_id">Blog ID</label>
-                    <input type="text" id="google_blog_id" name="google_blog_id" class="form-control"
-                           placeholder="123456789012345678">
-                    <p class="help-text">
-                        블로그 설정 또는 URL에서 확인 가능합니다.
-                    </p>
-                </div>
-                <div class="form-group">
-                    <label for="google_access_token">OAuth Access Token (선택)</label>
-                    <input type="text" id="google_access_token" name="google_access_token" class="form-control">
-                    <p class="help-text">
-                        더 많은 권한이 필요한 경우 OAuth 2.0 토큰을 입력하세요.
-                    </p>
-                </div>
-            </details>
-        </div>
+            <h3 style="margin-top: 30px; margin-bottom: 15px; color: #333;">AI 모델 선택</h3>
 
-        <button type="submit" class="btn btn-primary btn-large">
-            시작하기 →
-        </button>
-    </form>
-</div>
-{% endblock %}
+            <div class="form-group">
+                <label>1단계 (주제 생성)</label>
+                <select name="model1">
+                    <option value="gemini">Gemini 2.5 Flash</option>
+                    <option value="claude">Claude 3.5 Sonnet</option>
+                    <option value="gpt">GPT-4o</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>2단계 (콘텐츠 작성)</label>
+                <select name="model2">
+                    <option value="gemini">Gemini 2.5 Flash</option>
+                    <option value="claude">Claude 3.5 Sonnet</option>
+                    <option value="gpt">GPT-4o</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>3단계 (리뷰)</label>
+                <select name="model3">
+                    <option value="gemini">Gemini 2.5 Flash</option>
+                    <option value="claude">Claude 3.5 Sonnet</option>
+                    <option value="gpt">GPT-4o</option>
+                </select>
+            </div>
+
+            <button type="submit">시작하기</button>
+        </form>
+    </div>
+</body>
+</html>

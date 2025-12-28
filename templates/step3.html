@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>3단계: 콘텐츠 선택</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f0f2f5; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; }
+        h1 { color: #1a73e8; margin-bottom: 20px; }
+        .content { background: #f8f9fa; padding: 20px; margin-bottom: 20px; border-radius: 5px; }
+        .content h3 { color: #1a73e8; margin-bottom: 10px; }
+        .content h4 { color: #333; margin-bottom: 10px; }
+        .content p { color: #666; line-height: 1.6; white-space: pre-wrap; }
+        button { padding: 12px 25px; background: #1a73e8; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #1557b0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>3단계: 콘텐츠 선택</h1>
+        
+        {% for idx, content in enumerate(contents) %}
+        <div class="content">
+            <h3>{{ content['platform'] }} 버전</h3>
+            <h4>{{ content['title'] }}</h4>
+            <p>{{ content['content'][:300] }}...</p>
+            <form action="/step3_process" method="POST">
+                <input type="hidden" name="content_idx" value="{{ idx }}">
+                <button type="submit">이 콘텐츠로 리뷰 받기 →</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

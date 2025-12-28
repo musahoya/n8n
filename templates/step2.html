@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>2단계: 주제 선택</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f0f2f5; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; }
+        h1 { color: #1a73e8; margin-bottom: 20px; }
+        .topic { background: #f8f9fa; padding: 15px; margin-bottom: 15px; border-radius: 5px; border-left: 4px solid #1a73e8; }
+        .topic h3 { color: #333; margin-bottom: 5px; }
+        .topic p { color: #666; font-size: 14px; margin-bottom: 10px; }
+        button { padding: 10px 20px; background: #1a73e8; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #1557b0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>2단계: 주제 선택</h1>
+        
+        {% for idx, topic in enumerate(topics) %}
+        <div class="topic">
+            <h3>{{ idx + 1 }}. {{ topic['title'] }}</h3>
+            <p><strong>키워드:</strong> {{ topic['keyword'] }}</p>
+            <p><strong>이유:</strong> {{ topic['reason'] }}</p>
+            <form action="/step2_process" method="POST" style="display:inline;">
+                <input type="hidden" name="topic_idx" value="{{ idx }}">
+                <button type="submit">이 주제로 콘텐츠 작성 →</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

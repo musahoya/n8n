@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>1단계: 비즈니스 유형</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f0f2f5; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #1a73e8; margin-bottom: 10px; }
+        .step-info { background: #e8f4fd; padding: 15px; border-radius: 5px; margin-bottom: 20px; color: #1a73e8; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; color: #333; }
+        input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; }
+        button { padding: 12px 30px; background: #1a73e8; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
+        button:hover { background: #1557b0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>1단계: 비즈니스 유형 입력</h1>
+        <div class="step-info">
+            📝 귀하의 비즈니스 유형을 입력하면 AI가 5개의 블로그 주제를 제안합니다.
+        </div>
+
+        <form action="/step1_process" method="POST">
+            <div class="form-group">
+                <label>비즈니스 유형</label>
+                <input type="text" name="business" placeholder="예: 카페, IT 스타트업, 온라인 쇼핑몰" required>
+            </div>
+            <button type="submit">주제 생성하기 →</button>
+        </form>
+    </div>
+</body>
+</html>

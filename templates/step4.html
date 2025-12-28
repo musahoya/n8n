@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>4단계: 이미지 업로드</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f0f2f5; padding: 20px; }
+        .container { max-width: 700px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; }
+        h1 { color: #1a73e8; margin-bottom: 20px; }
+        .review { background: #e8f5e9; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+        .prompt { background: #fff3cd; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+        input[type="file"] { margin: 15px 0; }
+        button { padding: 12px 25px; background: #1a73e8; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #1557b0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>4단계: 이미지 업로드</h1>
+        
+        <div class="review">
+            <h3>리뷰 결과</h3>
+            <p>점수: {{ review['score'] }}/100</p>
+            <p>승인: {{ '✅ 통과' if review['approved'] else '❌ 수정 필요' }}</p>
+            <p>{{ review['suggestions'] }}</p>
+        </div>
+
+        <div class="prompt">
+            <h3>이미지 생성 프롬프트</h3>
+            <p>{{ prompt }}</p>
+            <p style="margin-top: 10px; font-size: 12px; color: #666;">
+                👉 이 프롬프트를 DALL-E, Midjourney 등에 붙여넣어 이미지를 생성한 후 업로드하세요.
+            </p>
+        </div>
+
+        <form action="/step4_upload" method="POST" enctype="multipart/form-data">
+            <label><strong>이미지 파일 선택:</strong></label>
+            <input type="file" name="image" accept="image/*" required>
+            <br><br>
+            <button type="submit">이미지 업로드하고 다음 →</button>
+        </form>
+    </div>
+</body>
+</html>

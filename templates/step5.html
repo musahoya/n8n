@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>5단계: 완료</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f0f2f5; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; text-align: center; }
+        h1 { color: #1a73e8; margin-bottom: 30px; }
+        .success { background: #d4edda; padding: 20px; border-radius: 5px; margin-bottom: 20px; color: #155724; }
+        .preview { background: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0; text-align: left; }
+        .preview h3 { color: #333; margin-bottom: 10px; }
+        .preview p { color: #666; line-height: 1.6; white-space: pre-wrap; }
+        img { max-width: 100%; height: auto; margin: 20px 0; border-radius: 5px; }
+        button { padding: 12px 25px; background: #1a73e8; color: white; border: none; border-radius: 5px; cursor: pointer; margin: 10px; }
+        button:hover { background: #1557b0; }
+        .btn-secondary { background: #6c757d; }
+        .btn-secondary:hover { background: #5a6268; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 완료!</h1>
+        
+        <div class="success">
+            <h2>✅ 모든 단계가 완료되었습니다!</h2>
+            <p>블로그 콘텐츠가 준비되었습니다.</p>
+        </div>
+
+        <div class="preview">
+            <h3>{{ topic['title'] }}</h3>
+            <p><strong>플랫폼:</strong> {{ content['platform'] }}</p>
+            <p><strong>리뷰 점수:</strong> {{ review['score'] }}/100</p>
+            
+            <h4 style="margin-top: 20px;">콘텐츠 미리보기:</h4>
+            <p>{{ content['content'][:500] }}...</p>
+            
+            <h4 style="margin-top: 20px;">이미지:</h4>
+            <img src="/static/uploads/{{ image }}" alt="업로드된 이미지">
+        </div>
+
+        <div>
+            <a href="/reset"><button class="btn-secondary">처음부터 다시 시작</button></a>
+        </div>
+
+        <p style="margin-top: 30px; color: #666; font-size: 14px;">
+            💡 실제 발행 기능은 추가 개발이 필요합니다. 위 콘텐츠를 복사하여 직접 발행하세요.
+        </p>
+    </div>
+</body>
+</html>
